@@ -41,7 +41,31 @@
 
   # Add stuff for your user as you see fit:
   # programs.neovim.enable = true;
-  home.packages = with pkgs; [ firefox vscode alacritty ];
+  home.packages = with pkgs; [ 
+      firefox 
+      libreoffice
+      calibre
+      nextcloud-client
+      vlc
+      handbrake
+
+      vscode 
+      htop
+
+      kitty
+      starship
+      tmux
+      direnv
+      tldr
+      neovim
+      git
+      gnupg
+      pinentry-gnome
+
+      gnomeExtensions.dash-to-dock
+      gnomeExtensions.appindicator
+      gnomeExtensions.pop-shell
+    ];
 
   # Enable home-manager and git
   programs.home-manager.enable = true;
