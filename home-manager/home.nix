@@ -39,10 +39,9 @@
     homeDirectory = "/home/jeremy";
   };
 
-  # Add stuff for your user as you see fit:
-  # programs.neovim.enable = true;
   home.packages = with pkgs; [ 
       firefox 
+      flameshot
       libreoffice
       calibre
       nextcloud-client
@@ -67,9 +66,28 @@
       gnomeExtensions.pop-shell
     ];
 
-  # Enable home-manager and git
   programs.home-manager.enable = true;
-  programs.git.enable = true;
+  programs.git= {
+    enable = true;
+    userEmail = "borgman.jeremy@pm.me";
+    userName = "Jeremy Borgman";
+    extraConfig = {
+      init = {
+        defaultBranch = "main";
+      };
+      core = {
+        editor = "nvim";
+      };
+    };
+  };
+
+  programs.kitty = {
+    enable = true;
+      font.size = 14;
+      font.name = "inconsolata";
+      theme = "moonlight";
+  };
+
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
