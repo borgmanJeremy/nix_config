@@ -83,11 +83,24 @@
 
   programs.kitty = {
     enable = true;
-      font.size = 14;
-      font.name = "inconsolata";
-      theme = "moonlight";
+    font.size = 14;
+    font.name = "inconsolata";
+    theme = "moonlight";
   };
 
+  programs.tmux = {
+    enable = true;
+    clock24 = true;
+    keyMode = "vi";
+    extraConfig = ''
+      bind | split-window -h
+      bind - split-window -v
+      unbind '"'
+      unbind %
+      set -g mouse on
+      bind r source-file ~/.config/tmux/tmux.conf
+      '';
+  };
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
