@@ -70,6 +70,7 @@
     description = "jeremy";
     extraGroups = [ "networkmanager" "wheel" "docker" "libvirtd"];
     packages = with pkgs; [
+      home-manager
       firefox
       gnumake
       libvirt
