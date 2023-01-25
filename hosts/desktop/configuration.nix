@@ -79,19 +79,9 @@
       lm_sensors
       calibre
       openssl
-      vim
-      tldr
-      neovim
-      starship
-      fish
       pinentry-gnome
-      tmux
       htop
       tailscale
-      kitty
-      flameshot
-      stow
-      gitFull
       barrier
       prusa-slicer
       vscode

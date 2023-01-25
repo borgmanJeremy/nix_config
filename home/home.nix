@@ -21,6 +21,17 @@
     homeDirectory = "/home/${user}";
   };
 
+  home.packages = with pkgs; [
+    tldr
+    neovim
+    tmux
+    kitty
+    flameshot
+    stow
+    starship
+    fish
+  ];
+
   # Enable home-manager and git
   programs.home-manager.enable = true;
   programs.git.enable = true;
