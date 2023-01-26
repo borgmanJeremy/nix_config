@@ -62,7 +62,8 @@
   networking.hostId = "f4485321";
   boot.supportedFilesystems = ["zfs"];
 
-
+  services.xserver.videoDrivers = ["amdgpu"];
+  programs.steam.enable = true; # optional
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.jeremy = {
     shell = pkgs.fish;
@@ -71,6 +72,7 @@
     extraGroups = [ "networkmanager" "wheel" "docker" "libvirtd"];
     packages = with pkgs; [
       home-manager
+      steam
       firefox
       libvirt
       libreoffice

@@ -25,10 +25,8 @@
   home.packages = with pkgs; [
     tldr
     neovim
-    kitty
     fish
     tmux
-    stow
     starship
     htop
     gnumake
@@ -38,9 +36,21 @@
     pkgs-unstable.flameshot
   ];
 
+  programs.git = {
+    enable = true;
+    userName = "Jeremy Borgman";
+    userEmail = "borgman.jeremy@pm.me";
+  };
+
+  programs.kitty ={
+    enable = true;
+    font.size = 16;
+    font.name = "DejuVu Sans Mono";
+    theme = "Afterglow";
+  };
+
   # Enable home-manager and git
   programs.home-manager.enable = true;
-  programs.git.enable = true;
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
