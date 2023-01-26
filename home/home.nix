@@ -1,7 +1,7 @@
 # This is your home-manager configuration file
 # Use this to configure your home environment (it replaces ~/.config/nixpkgs/home.nix)
 
-{ inputs, lib, user, config, pkgs, ... }: {
+{ inputs, lib, user, config, pkgs, pkgs-unstable, ... }: {
   imports = [
   ];
   nixpkgs = {
@@ -11,6 +11,7 @@
     # Configure your nixpkgs instance
     config = {
       allowUnfree = true;
+      # allowUnsupportedSystem = true;
       # Workaround for https://github.com/nix-community/home-manager/issues/2942
       allowUnfreePredicate = (_: true);
     };
@@ -27,7 +28,7 @@
     kitty
     fish
     tmux
-    #flameshot
+    pkgs-unstable.flameshot
     stow
     starship
   ];

@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-22.11";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -11,7 +12,7 @@
     darwin.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, darwin, home-manager, ... }@inputs: 
+  outputs = { self, nixpkgs, nixpkgs-unstable, darwin, home-manager, ... }@inputs: 
     let 
       user = "jeremy";
     in
@@ -48,7 +49,10 @@
 
         "jeremy@Jeremys-MacBook-Air" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.aarch64-darwin; 
-          extraSpecialArgs = { inherit inputs; inherit user;}; 
+          extraSpecialArgs = {
+            inherit inputs user;
+                  pkgs-unstable = import nixpkgs-unstable { system = "aarch64-darwin"; config.allowUnfree = true; };
+          };
           modules = [ ./home/home.nix ];
         };
 
