@@ -72,7 +72,6 @@
     packages = with pkgs; [
       home-manager
       firefox
-      gnumake
       libvirt
       libreoffice
       gnupg
@@ -80,13 +79,11 @@
       calibre
       openssl
       pinentry-gnome
-      htop
       tailscale
       barrier
       prusa-slicer
       vscode
       docker-compose
-      direnv
       freecad
       flatpak
       handbrake
@@ -95,7 +92,6 @@
       virt-manager
       nextcloud-client
       sanoid
-      ripgrep
 
       gnomeExtensions.dash-to-dock
       gnomeExtensions.appindicator

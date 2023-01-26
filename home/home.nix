@@ -28,9 +28,14 @@
     kitty
     fish
     tmux
-    pkgs-unstable.flameshot
     stow
     starship
+    htop
+    gnumake
+    ripgrep
+    direnv
+
+    pkgs-unstable.flameshot
   ];
 
   # Enable home-manager and git
