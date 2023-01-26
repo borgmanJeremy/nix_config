@@ -24,12 +24,12 @@
   home.packages = with pkgs; [
     tldr
     neovim
-    tmux
     kitty
-    flameshot
+    fish
+    tmux
+    #flameshot
     stow
     starship
-    fish
   ];
 
   # Enable home-manager and git

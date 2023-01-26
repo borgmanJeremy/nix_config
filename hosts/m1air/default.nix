@@ -10,15 +10,6 @@
   # $ nix-env -qaP | grep wget
   environment.systemPackages =
     [ 
-	    pkgs.vim
-	    pkgs.fish
-	    pkgs.kitty
-	    pkgs.stow
-	    pkgs.git
-	    pkgs.direnv
-	    pkgs.vscode
-	    pkgs.starship
-	    pkgs.libreoffice-bin
     ];
 
   # Use a custom configuration.nix location.
