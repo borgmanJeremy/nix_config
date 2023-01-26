@@ -21,14 +21,14 @@
       # Available through 'nixos-rebuild --flake .#your-hostname'
       nixosConfigurations = {
         nixosvm = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs; }; # Pass flake inputs to our config
+          specialArgs = { inherit inputs; }; 
           modules = [ 
             ./hosts/qemu_vm/configuration.nix 
           ];
         };
 
         nixosdesktop = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs; }; # Pass flake inputs to our config
+          specialArgs = { inherit inputs; }; 
           modules = [ 
             ./hosts/desktop/configuration.nix
            ];
@@ -43,7 +43,10 @@
       homeConfigurations = {
         "jeremy@nixos" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.x86_64-linux; 
-          extraSpecialArgs = { inherit inputs; inherit user;}; 
+          extraSpecialArgs = {
+            inherit inputs user;
+                  pkgs-unstable = import nixpkgs-unstable { system = "aarch64-darwin"; config.allowUnfree = true; };
+          };
           modules = [ ./home/home.nix ];
         };
 
