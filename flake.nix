@@ -37,7 +37,7 @@
 
       darwinConfigurations."Jeremys-MacBook-Air" = darwin.lib.darwinSystem {
             system = "aarch64-darwin"; 
-            modules = [./hosts/m1air/default.nix];
+            modules = [./hosts/darwin/default.nix];
       };
 
       homeConfigurations = {
