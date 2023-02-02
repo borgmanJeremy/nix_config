@@ -45,7 +45,7 @@
           pkgs = nixpkgs.legacyPackages.x86_64-linux; 
           extraSpecialArgs = {
             inherit inputs user;
-                  pkgs-unstable = import nixpkgs-unstable { system = "aarch64-darwin"; config.allowUnfree = true; };
+                  pkgs-unstable = import nixpkgs-unstable { system = "x86_64-linux"; config.allowUnfree = true; };
           };
           modules = [ ./home/home.nix ];
         };
