@@ -90,6 +90,9 @@
       flatpak
       handbrake
       vlc
+      protonvpn-gui
+      yubikey-manager
+      yubikey-manager-qt
       virt-viewer
       virt-manager
       nextcloud-client
