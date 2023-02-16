@@ -24,7 +24,7 @@ in
     services.printing.enable = true;
     networking.networkmanager.enable = true;
 
-    # services.flatpak.enable = true;
+    services.flatpak.enable = true;
     system.autoUpgrade.enable = true;
     system.autoUpgrade.allowReboot = false;
 

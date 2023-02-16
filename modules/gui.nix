@@ -16,6 +16,11 @@ in
       default = false;
       description = "Use Gnome";
     };
+    usePlasma = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Use Plasma";
+    };
   };
 
   config = mkMerge
@@ -41,5 +46,14 @@ in
 
       nixpkgs.config.firefox.enableGnomeExtensions = true;
     })
+
+    (mkIf cfg.usePlasma {
+      services.xserver.displayManager.sddm.enable = true;
+      services.xserver.desktopManager.plasma5.enable = true;
+    })
+
+
+
+
   ];
 }

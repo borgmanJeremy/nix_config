@@ -36,14 +36,23 @@
   networking.hostName = "nixos"; # Define your hostname.
 
   my.gui.enable = true;
-  my.gui.useGnome = true;
+  #my.gui.useGnome = true;
+  my.gui.usePlasma = true;
+
   my.commonDesktopOptions.enable = true;
-  
-  
+
+ 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
+
+  # Scanner Support
+  hardware.sane.enable = true;  
+  hardware.sane.extraBackends = [pkgs.epkowa];
+
+  # Required to mount nfs via cli
+  services.nfs.server.enable = true;
 
   # Set up yubikey
   services.pcscd.enable=true;
@@ -69,7 +78,7 @@
     shell = pkgs.fish;
     isNormalUser = true;
     description = "jeremy";
-    extraGroups = [ "networkmanager" "wheel" "docker" "libvirtd"];
+    extraGroups = [ "networkmanager" "wheel" "docker" "libvirtd" "scanner" "lp"];
     packages = with pkgs; [
       home-manager
       steam
@@ -105,6 +114,7 @@
   };
 
   environment.systemPackages = with pkgs; [
+    nfs-utils
     vim
   ];
 
