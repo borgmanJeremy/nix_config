@@ -1,7 +1,23 @@
 # This is your home-manager configuration file
 # Use this to configure your home environment (it replaces ~/.config/nixpkgs/home.nix)
 
-{ inputs, lib, user, config, pkgs, pkgs-unstable, ... }: {
+{ inputs, lib, user, config, pkgs, pkgs-unstable, ... }: 
+let 
+  # installs a vim plugin from git with a given tag / branch
+  pluginGit = ref: repo: pkgs.vimUtils.buildVimPluginFrom2Nix {
+    pname = "${lib.strings.sanitizeDerivationName repo}";
+    version = ref;
+    src = builtins.fetchGit {
+      url = "https://github.com/${repo}.git";
+      ref = ref;
+    };
+  };
+
+  # always installs latest version
+  plugin = pluginGit "HEAD";
+
+in
+{
   imports = [
   ];
   nixpkgs = {
@@ -24,7 +40,6 @@
 
   home.packages = with pkgs; [
     tldr
-    neovim
     fish
     starship
     htop
@@ -34,6 +49,28 @@
     fzf
     inputs.customFlameshot.defaultPackage.${system}
   ];
+
+  programs.neovim = {
+    enable = true;
+    viAlias = true;
+    vimAlias = true;
+    extraConfig = ''
+      set number relativenumber
+      colorscheme everforest
+    '';
+
+    extraPackages = with pkgs; [
+      tree-sitter
+      rust-analyzer
+    ];
+
+    plugins = with pkgs.vimPlugins; [
+     vim-airline
+     vim-nix
+     (plugin "sainnhe/everforest")
+    ];
+  };
+
 
   programs.fish = {
     enable = true;

@@ -1,7 +1,7 @@
 m1air:
 	nix build .\#darwinConfigurations.Jeremys-MacBook-Air.system
 	./result/sw/bin/darwin-rebuild switch --flake .
-	home-manager switch --flake .#jeremy@Jeremys-MacBook-Air
+	home-manager switch --flake .#jeremy@Jeremys-MacBook-Air --impure
 
 nixosdesktop:
 	nixos-rebuild switch --flake .\#nixosdesktop

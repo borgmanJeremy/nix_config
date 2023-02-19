@@ -59,7 +59,7 @@
         "jeremy@Jeremys-MacBook-Air" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.aarch64-darwin; 
           extraSpecialArgs = {
-            inherit inputs user;
+            inherit inputs user; 
                   pkgs-unstable = import nixpkgs-unstable { system = "aarch64-darwin"; config.allowUnfree = true; };
           };
           modules = [ ./home/home.nix ];
