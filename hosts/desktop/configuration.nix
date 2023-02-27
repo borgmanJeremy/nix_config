@@ -36,20 +36,14 @@
   networking.hostName = "nixos"; # Define your hostname.
 
   my.gui.enable = true;
-  #my.gui.useGnome = true;
   my.gui.usePlasma = true;
 
   my.commonDesktopOptions.enable = true;
 
- 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
-
-  # Scanner Support
-  hardware.sane.enable = true;  
-  hardware.sane.extraBackends = [pkgs.epkowa];
 
   # Required to mount nfs via cli
   services.nfs.server.enable = true;
@@ -83,13 +77,13 @@
       home-manager
       steam
       firefox
+      kalendar
       libvirt
       libreoffice
       gnupg
       lm_sensors
       calibre
       openssl
-      pinentry-gnome
       tailscale
       barrier
       prusa-slicer
@@ -102,14 +96,11 @@
       protonvpn-gui
       yubikey-manager
       yubikey-manager-qt
+      yubikey-touch-detector
       virt-viewer
       virt-manager
       nextcloud-client
       sanoid
-
-      gnomeExtensions.dash-to-dock
-      gnomeExtensions.appindicator
-      gnomeExtensions.pop-shell
     ];
   };
 
