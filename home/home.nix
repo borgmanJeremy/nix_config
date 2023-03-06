@@ -31,6 +31,7 @@
     gnumake
     ripgrep
     direnv
+    inputs.customFlameshot.defaultPackage.${system}
   ];
 
   programs.fish = {

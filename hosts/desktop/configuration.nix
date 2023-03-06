@@ -102,7 +102,7 @@
       virt-manager
       nextcloud-client
       sanoid
-      inputs.customFlameshot.defaultPackage.x86_64-linux
+      # inputs.customFlameshot.defaultPackage.x86_64-linux
     ];
   };
 
