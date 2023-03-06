@@ -2,8 +2,6 @@
   description = "Nix Configurations";
 
   inputs = {
-    # nixpkgs.url = "github:nixos/nixpkgs/master";
-    #nixpkgs.url = "github:nixos/nixpkgs/nixos-22.11";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
@@ -12,6 +10,10 @@
 
     darwin.url = "github:lnl7/nix-darwin/master";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
+
+    customFlameshot = {
+      url = "github:borgmanJeremy/flameshot/removeImgur";
+    };
   };
 
   outputs = { self, nixpkgs, nixpkgs-unstable, darwin, home-manager, ... }@inputs: 
@@ -19,6 +21,8 @@
       user = "jeremy";
     in
     {
+      overlays = import ./overlays { inherit inputs; };
+
       # NixOS configuration entrypoint
       # Available through 'nixos-rebuild --flake .#your-hostname'
       nixosConfigurations = {
@@ -47,7 +51,7 @@
           pkgs = nixpkgs.legacyPackages.x86_64-linux; 
           extraSpecialArgs = {
             inherit inputs user;
-                  pkgs-unstable = import nixpkgs-unstable { system = "x86_64-linux"; config.allowUnfree = true; };
+                  pkgs-unstable   = import nixpkgs-unstable { system = "x86_64-linux"; config.allowUnfree = true; };
           };
           modules = [ ./home/home.nix ];
         };

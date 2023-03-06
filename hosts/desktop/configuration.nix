@@ -75,6 +75,7 @@
     extraGroups = [ "networkmanager" "wheel" "docker" "libvirtd" "scanner" "lp"];
     packages = with pkgs; [
       home-manager
+      makemkv
       steam
       firefox
       kalendar
@@ -101,6 +102,7 @@
       virt-manager
       nextcloud-client
       sanoid
+      inputs.customFlameshot.defaultPackage.x86_64-linux
     ];
   };
 

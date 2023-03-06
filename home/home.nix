@@ -31,8 +31,6 @@
     gnumake
     ripgrep
     direnv
-
-    pkgs-unstable.flameshot
   ];
 
   programs.fish = {
