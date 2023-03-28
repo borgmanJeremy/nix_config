@@ -31,6 +31,7 @@
     gnumake
     ripgrep
     direnv
+    fzf
     inputs.customFlameshot.defaultPackage.${system}
   ];
 

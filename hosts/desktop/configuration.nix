@@ -74,6 +74,7 @@
     description = "jeremy";
     extraGroups = [ "networkmanager" "wheel" "docker" "libvirtd" "scanner" "lp"];
     packages = with pkgs; [
+      signal-desktop
       home-manager
       makemkv
       steam
