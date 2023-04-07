@@ -61,6 +61,7 @@
     enable = true;
     enableSSHSupport = true;
   };
+  programs.fish.enable = true;
 
   networking.hostId = "f4485321";
   boot.supportedFilesystems = ["zfs"];

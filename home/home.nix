@@ -57,6 +57,8 @@ in
     extraConfig = ''
       set number relativenumber
       colorscheme everforest
+      nnoremap <C-t> :NERDTreeToggle<CR>
+
     '';
 
     extraPackages = with pkgs; [
@@ -67,6 +69,7 @@ in
     plugins = with pkgs.vimPlugins; [
      vim-airline
      vim-nix
+     nerdtree
      (plugin "sainnhe/everforest")
     ];
   };
