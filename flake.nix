@@ -11,12 +11,14 @@
     darwin.url = "github:lnl7/nix-darwin/master";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
 
+    hyprland.url = "github:hyprwm/Hyprland";
+
     customFlameshot = {
       url = "github:borgmanJeremy/flameshot/removeImgur";
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, darwin, home-manager, ... }@inputs: 
+  outputs = { self, nixpkgs, nixpkgs-unstable, darwin, hyprland, home-manager, ... }@inputs: 
     let 
       user = "jeremy";
     in
@@ -37,6 +39,7 @@
           specialArgs = { inherit inputs; }; 
           modules = [ 
             ./hosts/desktop/configuration.nix
+            hyprland.nixosModules.default
            ];
         };
       };
@@ -53,7 +56,10 @@
             inherit inputs user;
                   pkgs-unstable   = import nixpkgs-unstable { system = "x86_64-linux"; config.allowUnfree = true; };
           };
-          modules = [ ./home/home.nix ];
+          modules = [ 
+            ./home/home.nix 
+            hyprland.homeManagerModules.default
+          ];
         };
 
         "jeremy@Jeremys-MacBook-Air" = home-manager.lib.homeManagerConfiguration {
