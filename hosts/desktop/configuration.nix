@@ -104,6 +104,8 @@
       virt-manager
       nextcloud-client
       sanoid
+      filelight
+      python311
       # inputs.customFlameshot.defaultPackage.x86_64-linux
     ];
   };
