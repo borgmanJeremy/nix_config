@@ -39,8 +39,8 @@
 
   my.gui.enable = true;
   my.gui.usePlasma = true;
+  my.gui.useHyprland = true;
 
-  programs.hyprland.enable = true;
 
   my.commonDesktopOptions.enable = true;
 
@@ -84,7 +84,6 @@
       makemkv
       steam
       firefox
-      kalendar
       libvirt
       libreoffice
       gnupg
@@ -99,7 +98,6 @@
       freecad
       flatpak
       handbrake
-      vlc
       protonvpn-gui
       yubikey-manager
       yubikey-manager-qt
@@ -108,10 +106,9 @@
       virt-manager
       nextcloud-client
       sanoid
-      filelight
       python311
-      # inputs.customFlameshot.defaultPackage.x86_64-linux
     ];
+ 
   };
 
   environment.systemPackages = with pkgs; [

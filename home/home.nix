@@ -48,7 +48,23 @@ in
     direnv
     fzf
     inputs.customFlameshot.defaultPackage.${system}
-  ];
+
+      # Make this if true conditional on if hyprland is set to true, dunno why its not working yet
+    ] ++ (if true then
+    [
+      dunst
+      rofi
+    ] else [] );
+
+  programs.rofi = {
+    enable = true;
+  };
+
+  programs.eww = {
+    enable = true;
+    package = pkgs.eww-wayland;
+    configDir = ./eww;
+  };
 
   programs.neovim = {
     enable = true;

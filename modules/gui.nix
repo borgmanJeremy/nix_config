@@ -21,6 +21,12 @@ in
       default = false;
       description = "Use Plasma";
     };
+
+    useHyprland = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Use Hyprland";
+    };
   };
 
   config = mkMerge
@@ -50,6 +56,10 @@ in
     (mkIf cfg.usePlasma {
       services.xserver.displayManager.sddm.enable = true;
       services.xserver.desktopManager.plasma5.enable = true;
+    })
+
+    (mkIf cfg.useHyprland {
+      programs.hyprland.enable = true;
     })
 
 

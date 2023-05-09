@@ -4,8 +4,8 @@ m1air:
 	home-manager switch --flake .#jeremy@Jeremys-MacBook-Air --impure
 
 nixosdesktop:
-	nixos-rebuild switch --flake .\#nixosdesktop
-	home-manager switch --flake .#jeremy@nixos
+	sudo nixos-rebuild switch --flake .\#nixosdesktop
+	home-manager switch --flake .#jeremy@nixos --impure
 
 nixosvm:
 	nixos-rebuild build --flake .\#nixosvm
