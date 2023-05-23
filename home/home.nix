@@ -47,21 +47,25 @@ in
     ripgrep
     direnv
     fzf
+    syncthing
+    obs-studio
+    kdenlive
+    joplin-desktop
     inputs.customFlameshot.defaultPackage.${system}
 
       # Make this if true conditional on if hyprland is set to true, dunno why its not working yet
-    ] ++ (if true then
+    ] ++ (if false then
     [
       dunst
       rofi
     ] else [] );
 
   programs.rofi = {
-    enable = true;
+    enable = false;
   };
 
   programs.eww = {
-    enable = true;
+    enable = false;
     package = pkgs.eww-wayland;
     configDir = ./eww;
   };

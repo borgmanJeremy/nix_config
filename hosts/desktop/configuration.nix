@@ -79,6 +79,7 @@
     description = "jeremy";
     extraGroups = [ "networkmanager" "wheel" "docker" "libvirtd" "scanner" "lp"];
     packages = with pkgs; [
+      nerdfonts
       signal-desktop
       home-manager
       makemkv
