@@ -54,11 +54,12 @@ in
     inputs.customFlameshot.defaultPackage.${system}
 
       # Make this if true conditional on if hyprland is set to true, dunno why its not working yet
-    ] ++ (if false then
-    [
-      dunst
-      rofi
-    ] else [] );
+    ];
+    #++ (if false then
+    #[
+    #  dunst
+    #  rofi
+    #] else [] );
 
   programs.rofi = {
     enable = false;
@@ -95,7 +96,7 @@ in
   };
 
   wayland.windowManager.hyprland = {
-    enable = true;
+    enable = false;
     extraConfig = builtins.readFile ./hyprland.conf;
   };
 

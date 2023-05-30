@@ -39,7 +39,7 @@
 
   my.gui.enable = true;
   my.gui.usePlasma = true;
-  my.gui.useHyprland = true;
+  my.gui.useHyprland = false;
 
 
   my.commonDesktopOptions.enable = true;
@@ -108,6 +108,7 @@
       nextcloud-client
       sanoid
       python311
+      yuzu-ea
     ];
  
   };
