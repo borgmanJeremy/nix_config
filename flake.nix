@@ -11,14 +11,12 @@
     darwin.url = "github:lnl7/nix-darwin/master";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
 
-    hyprland.url = "github:hyprwm/Hyprland";
-
     customFlameshot = {
       url = "github:borgmanJeremy/flameshot/removeImgur";
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, darwin, hyprland, home-manager, ... }@inputs: 
+  outputs = { self, nixpkgs, nixpkgs-unstable, darwin, home-manager, ... }@inputs: 
     let 
       user = "jeremy";
     in
@@ -39,7 +37,6 @@
           specialArgs = { inherit inputs; }; 
           modules = [ 
             ./hosts/desktop/configuration.nix
-            hyprland.nixosModules.default
            ];
         };
       };
@@ -58,7 +55,6 @@
           };
           modules = [ 
             ./home/home.nix 
-            hyprland.homeManagerModules.default
           ];
         };
 

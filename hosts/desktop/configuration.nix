@@ -30,8 +30,6 @@
     settings = {
       experimental-features = "nix-command flakes";
       auto-optimise-store = true;
-      substituters = ["https://hyprland.cachix.org"];
-      trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
     };
   };
 
@@ -39,8 +37,6 @@
 
   my.gui.enable = true;
   my.gui.usePlasma = true;
-  my.gui.useHyprland = false;
-
 
   my.commonDesktopOptions.enable = true;
 
@@ -51,6 +47,13 @@
 
   # Required to mount nfs via cli
   services.nfs.server.enable = true;
+
+  services.syncthing = {
+    enable = true;
+    user = "jeremy";
+    dataDir = "/home/jeremy/Sync";
+    configDir = "/home/jeremy/.config/syncthing";
+  };
 
   # Set up yubikey
   services.pcscd.enable=true;
@@ -69,7 +72,10 @@
 
   networking.hostId = "f4485321";
   boot.supportedFilesystems = ["zfs"];
-  
+
+  hardware.logitech.wireless.enable = true;
+  hardware.logitech.wireless.enableGraphical = true;
+
   services.xserver.videoDrivers = ["amdgpu"];
   programs.steam.enable = true; # optional
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -79,35 +85,34 @@
     description = "jeremy";
     extraGroups = [ "networkmanager" "wheel" "docker" "libvirtd" "scanner" "lp"];
     packages = with pkgs; [
-      nerdfonts
-      signal-desktop
-      home-manager
-      makemkv
-      steam
-      firefox
-      libvirt
-      libreoffice
-      gnupg
-      lm_sensors
-      calibre
-      openssl
-      tailscale
       barrier
-      prusa-slicer
-      vscode
+      calibre
       docker-compose
-      freecad
+      firefox
       flatpak
-      handbrake
+      freecad
+      gnupg
+      # handbrake # Failing to build on latest
+      home-manager
+      libreoffice
+      libvirt
+      lm_sensors
+      makemkv
+      nextcloud-client
+      openssl
       protonvpn-gui
+      prusa-slicer
+      python311
+      sanoid
+      signal-desktop
+      steam
+      tailscale
+      virt-manager
+      virt-viewer
+      vscode
       yubikey-manager
       yubikey-manager-qt
       yubikey-touch-detector
-      virt-viewer
-      virt-manager
-      nextcloud-client
-      sanoid
-      python311
       yuzu-ea
     ];
  

@@ -39,37 +39,25 @@ in
   };
 
   home.packages = with pkgs; [
-    tldr
-    fish
-    starship
-    htop
-    gnumake
-    ripgrep
     direnv
+    fish
     fzf
-    syncthing
-    obs-studio
-    kdenlive
+    gnumake
+    htop
     joplin-desktop
+    kdenlive
+    obs-studio
+    ripgrep
+    starship
+    tldr
     inputs.customFlameshot.defaultPackage.${system}
-
-      # Make this if true conditional on if hyprland is set to true, dunno why its not working yet
     ];
-    #++ (if false then
-    #[
-    #  dunst
-    #  rofi
-    #] else [] );
+
 
   programs.rofi = {
     enable = false;
   };
 
-  programs.eww = {
-    enable = false;
-    package = pkgs.eww-wayland;
-    configDir = ./eww;
-  };
 
   programs.neovim = {
     enable = true;
@@ -95,10 +83,6 @@ in
     ];
   };
 
-  wayland.windowManager.hyprland = {
-    enable = false;
-    extraConfig = builtins.readFile ./hyprland.conf;
-  };
 
   programs.fish = {
     enable = true;
