@@ -31,7 +31,15 @@
       experimental-features = "nix-command flakes";
       auto-optimise-store = true;
     };
+
+    gc = {
+		  automatic = true;
+		  dates = "weekly";
+		  options = "--delete-older-than 30d";
+	  };
   };
+
+	
 
   networking.hostName = "nixos"; # Define your hostname.
 
@@ -42,6 +50,7 @@
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot.configurationLimit = 10;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
@@ -89,16 +98,17 @@
       calibre
       docker-compose
       firefox
+      file
       flatpak
       freecad
       gnupg
-      # handbrake # Failing to build on latest
+      handbrake # Failing to build on latest
       home-manager
       libreoffice
       libvirt
       lm_sensors
-      makemkv
       nextcloud-client
+      makemkv
       openssl
       protonvpn-gui
       prusa-slicer

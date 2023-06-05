@@ -2,7 +2,7 @@
   description = "Nix Configurations";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager.url = "github:nix-community/home-manager";
@@ -14,6 +14,8 @@
     customFlameshot = {
       url = "github:borgmanJeremy/flameshot/removeImgur";
     };
+
+
   };
 
   outputs = { self, nixpkgs, nixpkgs-unstable, darwin, home-manager, ... }@inputs: 
