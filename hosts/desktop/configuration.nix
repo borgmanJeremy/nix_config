@@ -92,11 +92,10 @@
     shell = pkgs.fish;
     isNormalUser = true;
     description = "jeremy";
-    extraGroups = [ "networkmanager" "wheel" "docker" "libvirtd" "scanner" "lp"];
+    extraGroups = [ "networkmanager" "wheel" "libvirtd" "scanner" "lp"];
     packages = with pkgs; [
       barrier
       calibre
-      docker-compose
       firefox
       file
       flatpak
@@ -110,6 +109,7 @@
       nextcloud-client
       makemkv
       openssl
+      podman-compose
       protonvpn-gui
       prusa-slicer
       python311
@@ -131,6 +131,7 @@
   environment.systemPackages = with pkgs; [
     nfs-utils
     vim
+    kde-rounded-corners
   ];
 
   services.openssh.enable = true;

@@ -29,7 +29,13 @@ in
     system.autoUpgrade.allowReboot = false;
 
     services.tailscale.enable = true;
-    virtualisation.docker.enable = true;
+    virtualisation.podman = {
+      enable = true;
+      dockerCompat = true;
+      defaultNetwork.settings = {
+        dns_enabled = true;
+      };
+    };
     virtualisation.libvirtd.enable = true;
    };
 }

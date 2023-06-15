@@ -47,7 +47,7 @@
   users.users = {
     jeremy = {
       isNormalUser = true;
-      extraGroups = [ "wheel" "docker" ];
+      extraGroups = [ "wheel" ];
     };
   };
 
