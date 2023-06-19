@@ -54,11 +54,6 @@ in
     ];
 
 
-  programs.rofi = {
-    enable = false;
-  };
-
-
   programs.neovim = {
     enable = true;
     viAlias = true;
@@ -98,6 +93,7 @@ in
   };
 
   programs.git = {
+    package = pkgs.gitAndTools.gitFull;
     enable = true;
     userName = "Jeremy Borgman";
     userEmail = "borgman.jeremy@pm.me";
