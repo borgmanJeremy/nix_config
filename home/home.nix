@@ -44,9 +44,6 @@ in
     fzf
     gnumake
     htop
-    joplin-desktop
-    kdenlive
-    obs-studio
     ripgrep
     starship
     tldr

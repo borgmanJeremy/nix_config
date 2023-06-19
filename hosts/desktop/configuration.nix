@@ -96,18 +96,21 @@
     packages = with pkgs; [
       barrier
       calibre
-      firefox
       file
+      firefox
       flatpak
       freecad
       gnupg
       handbrake # Failing to build on latest
       home-manager
+      joplin-desktop
+      kdenlive
       libreoffice
       libvirt
       lm_sensors
-      nextcloud-client
       makemkv
+      nextcloud-client
+      obs-studio
       openssl
       podman-compose
       protonvpn-gui
