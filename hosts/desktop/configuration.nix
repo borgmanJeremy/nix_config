@@ -18,6 +18,24 @@
     };
   };
 
+  services.rpcbind.enable = true; # needed for NFS
+  systemd.mounts = [{
+    type = "nfs";
+    mountConfig = {
+      Options = "noatime";
+    };
+    what = "192.168.1.77:/data/media/pictures";
+    where = "/mnt/falcon/data/media/pictures";
+  }];
+
+  systemd.automounts = [{
+    wantedBy = [ "multi-user.target" ];
+    automountConfig = {
+      TimeoutIdleSec = "600";
+    };
+    where = "/mnt/falcon/data/media/pictures";
+  }];
+
   nix = {
     # This will add each flake input as a registry
     # To make nix3 commands consistent with your flake
@@ -96,12 +114,13 @@
     packages = with pkgs; [
       barrier
       calibre
+      digikam
       file
       firefox
       flatpak
       freecad
       gnupg
-      handbrake # Failing to build on latest
+      handbrake
       home-manager
       joplin-desktop
       kdenlive
@@ -122,7 +141,7 @@
       tailscale
       virt-manager
       virt-viewer
-      vscode
+
       yubikey-manager
       yubikey-manager-qt
       yubikey-touch-detector

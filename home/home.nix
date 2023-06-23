@@ -50,6 +50,16 @@ in
     inputs.customFlameshot.defaultPackage.${system}
     ];
 
+  programs.vscode = {
+    enable = true;
+    extensions = with pkgs.vscode-extensions; [
+      vadimcn.vscode-lldb
+      rust-lang.rust-analyzer
+      ms-python.vscode-pylance
+      ms-vscode.cpptools
+      vscodevim.vim    
+    ];
+  };
 
   programs.neovim = {
     enable = true;
