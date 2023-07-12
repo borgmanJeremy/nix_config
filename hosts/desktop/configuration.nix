@@ -1,7 +1,7 @@
 # This is your system's configuration file.
 # Use this to configure your system environment (it replaces /etc/nixos/configuration.nix)
 
-{ inputs, lib, config, pkgs, ... }: {
+{ inputs, lib, config, pkgs, pkgs-unstable, ... }: {
   imports = [
     # Import your generated (nixos-generate-config) hardware configuration
     ./hardware-configuration.nix
@@ -57,7 +57,6 @@
 	  };
   };
 
-	
 
   networking.hostName = "nixos"; # Define your hostname.
 
@@ -72,6 +71,9 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
+  # zfs
+  services.zfs.autoScrub.enable = true;
+  
   # Required to mount nfs via cli
   services.nfs.server.enable = true;
 
@@ -115,6 +117,7 @@
       barrier
       calibre
       digikam
+      pkgs-unstable.distrobox
       file
       firefox
       flatpak

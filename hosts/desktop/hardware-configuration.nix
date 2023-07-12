@@ -22,6 +22,13 @@
     { device = "/dev/disk/by-uuid/116A-4011";
       fsType = "vfat";
     };
+  
+  fileSystems."/mnt/spare" =
+    { device = "/dev/disk/by-uuid/b9fd5690-114a-42f0-a7fb-de3cf4fa9070";
+      fsType = "ext4";
+    };
+
+
 
   swapDevices = [ ];
 
@@ -39,6 +46,7 @@
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.bluetooth.enable = true;
   # high-resolution display
   # hardware.video.hidpi.enable = lib.mkDefault true;
 }
