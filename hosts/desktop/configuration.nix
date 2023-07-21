@@ -19,14 +19,24 @@
   };
 
   services.rpcbind.enable = true; # needed for NFS
+
   systemd.mounts = [{
+    type = "nfs";
+    mountConfig = {
+      Options = "noatime";
+    };
+    what = "192.168.1.77:/data/arr";
+    where = "/mnt/falcon/data/arr";
+  }
+  {
     type = "nfs";
     mountConfig = {
       Options = "noatime";
     };
     what = "192.168.1.77:/data/media/pictures";
     where = "/mnt/falcon/data/media/pictures";
-  }];
+  }
+  ];
 
   systemd.automounts = [{
     wantedBy = [ "multi-user.target" ];
@@ -34,7 +44,15 @@
       TimeoutIdleSec = "600";
     };
     where = "/mnt/falcon/data/media/pictures";
-  }];
+  }
+  {
+    wantedBy = [ "multi-user.target" ];
+    automountConfig = {
+      TimeoutIdleSec = "600";
+    };
+    where = "/mnt/falcon/data/arr";
+  }
+  ];
 
   nix = {
     # This will add each flake input as a registry
@@ -138,12 +156,15 @@
       protonvpn-gui
       prusa-slicer
       python311
+      rawtherapee
       sanoid
       signal-desktop
       steam
       tailscale
       virt-manager
       virt-viewer
+
+      xorg.xhost
 
       yubikey-manager
       yubikey-manager-qt
