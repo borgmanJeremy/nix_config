@@ -10,6 +10,7 @@
 
   nixpkgs = {
     overlays = [
+      (import ../../overlays/default.nix)
    ];
 
     # Configure your nixpkgs instance
