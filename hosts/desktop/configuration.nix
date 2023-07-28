@@ -133,6 +133,7 @@
     extraGroups = [ "networkmanager" "wheel" "libvirtd" "scanner" "lp"];
     packages = with pkgs; [
       barrier
+      blender
       calibre
       digikam
       pkgs-unstable.distrobox
