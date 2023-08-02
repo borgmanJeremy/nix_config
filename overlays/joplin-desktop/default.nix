@@ -49,7 +49,6 @@ let
       export LC_ALL=C.UTF-8
     '';
 
-    multiArch = false; # no 32bit needed
     extraPkgs = appimageTools.defaultFhsEnvArgs.multiPkgs;
     extraInstallCommands = ''
       mv $out/bin/{${name},${pname}}

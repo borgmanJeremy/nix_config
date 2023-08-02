@@ -104,6 +104,11 @@ in
     enable = true;
     userName = "Jeremy Borgman";
     userEmail = "borgman.jeremy@pm.me";
+    extraConfig = {
+      init = {
+        defaultBranch = "main";
+      };
+    };
   };
 
   programs.tmux = {
