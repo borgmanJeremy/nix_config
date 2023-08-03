@@ -22,6 +22,7 @@
   outputs = { self, nixpkgs, nixpkgs-unstable, darwin, home-manager, ... }@inputs: 
     let 
       user = "jeremy";
+      homedir = "/home/jeremy/";
     in
     {
       overlays = import ./overlays { inherit inputs; };
@@ -56,7 +57,7 @@
         "jeremy@nixos" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.x86_64-linux; 
           extraSpecialArgs = {
-            inherit inputs user;
+            inherit inputs user homedir;
                   pkgs-unstable   = import nixpkgs-unstable { system = "x86_64-linux"; config.allowUnfree = true; };
           };
           modules = [ 
@@ -67,6 +68,7 @@
         "jeremy@jeremys-macbook-air" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.aarch64-darwin; 
           extraSpecialArgs = {
+            homedir = "/Users/jeremy";
             inherit inputs user; 
                   pkgs-unstable = import nixpkgs-unstable { system = "aarch64-darwin"; config.allowUnfree = true; };
           };

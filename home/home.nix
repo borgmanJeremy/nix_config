@@ -1,7 +1,7 @@
 # This is your home-manager configuration file
 # Use this to configure your home environment (it replaces ~/.config/nixpkgs/home.nix)
 
-{ inputs, lib, user, config, pkgs, pkgs-unstable, ... }: 
+{ inputs, lib, user, homedir, config, pkgs, pkgs-unstable, ... }: 
 let 
   # installs a vim plugin from git with a given tag / branch
   pluginGit = ref: repo: pkgs.vimUtils.buildVimPluginFrom2Nix {
@@ -35,7 +35,7 @@ in
 
   home = {
     username = "${user}";
-    homeDirectory = "/home/${user}";
+    homeDirectory = "${homedir}";
   };
 
   home.packages = with pkgs; [
