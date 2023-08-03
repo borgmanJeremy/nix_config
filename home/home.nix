@@ -53,10 +53,10 @@ in
   programs.vscode = {
     enable = true;
     extensions = with pkgs.vscode-extensions; [
-      vadimcn.vscode-lldb
+      # vadimcn.vscode-lldb
       rust-lang.rust-analyzer
       ms-python.vscode-pylance
-      ms-vscode.cpptools
+      # ms-vscode.cpptools
       vscodevim.vim    
     ];
   };

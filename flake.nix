@@ -47,7 +47,7 @@
         };
       };
 
-      darwinConfigurations."Jeremys-MacBook-Air" = darwin.lib.darwinSystem {
+      darwinConfigurations."jeremys-macbook-air" = darwin.lib.darwinSystem {
             system = "aarch64-darwin"; 
             modules = [./hosts/darwin/default.nix];
       };
@@ -64,7 +64,7 @@
           ];
         };
 
-        "jeremy@Jeremys-MacBook-Air" = home-manager.lib.homeManagerConfiguration {
+        "jeremy@jeremys-macbook-air" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.aarch64-darwin; 
           extraSpecialArgs = {
             inherit inputs user; 
