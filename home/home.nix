@@ -1,7 +1,7 @@
 # This is your home-manager configuration file
 # Use this to configure your home environment (it replaces ~/.config/nixpkgs/home.nix)
 
-{ inputs, lib, user, config, pkgs, pkgs-unstable, ... }: 
+{ inputs, lib, user, homedir, config, pkgs, pkgs-unstable, ... }: 
 let 
   # installs a vim plugin from git with a given tag / branch
   pluginGit = ref: repo: pkgs.vimUtils.buildVimPluginFrom2Nix {
@@ -35,7 +35,7 @@ in
 
   home = {
     username = "${user}";
-    homeDirectory = "/home/${user}";
+    homeDirectory = "${homedir}";
   };
 
   home.packages = with pkgs; [
@@ -53,10 +53,10 @@ in
   programs.vscode = {
     enable = true;
     extensions = with pkgs.vscode-extensions; [
-      vadimcn.vscode-lldb
+      # vadimcn.vscode-lldb
       rust-lang.rust-analyzer
       ms-python.vscode-pylance
-      ms-vscode.cpptools
+      # ms-vscode.cpptools
       vscodevim.vim    
     ];
   };
@@ -104,6 +104,11 @@ in
     enable = true;
     userName = "Jeremy Borgman";
     userEmail = "borgman.jeremy@pm.me";
+    extraConfig = {
+      init = {
+        defaultBranch = "main";
+      };
+    };
   };
 
   programs.tmux = {
