@@ -1,7 +1,13 @@
 # This is your system's configuration file.
 # Use this to configure your system environment (it replaces /etc/nixos/configuration.nix)
-
-{ inputs, lib, config, pkgs, pkgs-unstable, ... }: {
+{
+  inputs,
+  lib,
+  config,
+  pkgs,
+  pkgs-unstable,
+  ...
+}: {
   imports = [
     # Import your generated (nixos-generate-config) hardware configuration
     ./hardware-configuration.nix
@@ -11,7 +17,7 @@
   nixpkgs = {
     overlays = [
       (import ../../overlays/default.nix)
-   ];
+    ];
 
     # Configure your nixpkgs instance
     config = {
@@ -21,44 +27,46 @@
 
   services.rpcbind.enable = true; # needed for NFS
 
-  systemd.mounts = [{
-    type = "nfs";
-    mountConfig = {
-      Options = "noatime";
-    };
-    what = "192.168.1.77:/data/arr";
-    where = "/mnt/falcon/data/arr";
-  }
-  {
-    type = "nfs";
-    mountConfig = {
-      Options = "noatime";
-    };
-    what = "192.168.1.77:/data/media/pictures";
-    where = "/mnt/falcon/data/media/pictures";
-  }
+  systemd.mounts = [
+    {
+      type = "nfs";
+      mountConfig = {
+        Options = "noatime";
+      };
+      what = "192.168.1.77:/data/arr";
+      where = "/mnt/falcon/data/arr";
+    }
+    {
+      type = "nfs";
+      mountConfig = {
+        Options = "noatime";
+      };
+      what = "192.168.1.77:/data/media/pictures";
+      where = "/mnt/falcon/data/media/pictures";
+    }
   ];
 
-  systemd.automounts = [{
-    wantedBy = [ "multi-user.target" ];
-    automountConfig = {
-      TimeoutIdleSec = "600";
-    };
-    where = "/mnt/falcon/data/media/pictures";
-  }
-  {
-    wantedBy = [ "multi-user.target" ];
-    automountConfig = {
-      TimeoutIdleSec = "600";
-    };
-    where = "/mnt/falcon/data/arr";
-  }
+  systemd.automounts = [
+    {
+      wantedBy = ["multi-user.target"];
+      automountConfig = {
+        TimeoutIdleSec = "600";
+      };
+      where = "/mnt/falcon/data/media/pictures";
+    }
+    {
+      wantedBy = ["multi-user.target"];
+      automountConfig = {
+        TimeoutIdleSec = "600";
+      };
+      where = "/mnt/falcon/data/arr";
+    }
   ];
 
   nix = {
     # This will add each flake input as a registry
     # To make nix3 commands consistent with your flake
-    registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
+    registry = lib.mapAttrs (_: value: {flake = value;}) inputs;
 
     # This will additionally add your inputs to the system's legacy channels
     # Making legacy nix commands consistent as well, awesome!
@@ -70,12 +78,11 @@
     };
 
     gc = {
-		  automatic = true;
-		  dates = "weekly";
-		  options = "--delete-older-than 30d";
-	  };
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 30d";
+    };
   };
-
 
   networking.hostName = "nixos"; # Define your hostname.
 
@@ -92,7 +99,7 @@
 
   # zfs
   services.zfs.autoScrub.enable = true;
-  
+
   # Required to mount nfs via cli
   services.nfs.server.enable = true;
 
@@ -104,14 +111,14 @@
   };
 
   # Set up yubikey
-  services.pcscd.enable=true;
+  services.pcscd.enable = true;
   programs.ssh.startAgent = false;
-  services.udev.packages = [ pkgs.yubikey-personalization ];
+  services.udev.packages = [pkgs.yubikey-personalization];
   programs.gnupg.agent.pinentryFlavor = "gnome3";
-    environment.shellInit = ''
+  environment.shellInit = ''
     gpg-connect-agent /bye
     export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
-  ''; 
+  '';
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
@@ -131,7 +138,7 @@
     shell = pkgs.fish;
     isNormalUser = true;
     description = "jeremy";
-    extraGroups = [ "networkmanager" "wheel" "libvirtd" "scanner" "lp"];
+    extraGroups = ["networkmanager" "wheel" "libvirtd" "scanner" "lp"];
     packages = with pkgs; [
       barrier
       blender
@@ -173,7 +180,6 @@
       yubikey-touch-detector
       yuzu-ea
     ];
- 
   };
 
   environment.systemPackages = with pkgs; [
@@ -192,6 +198,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "22.05"; # Did you read the comment?
-
 }
-

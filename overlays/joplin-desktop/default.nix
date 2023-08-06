@@ -1,6 +1,11 @@
-{ lib, stdenv, appimageTools, fetchurl, makeWrapper, undmg }:
-
-let
+{
+  lib,
+  stdenv,
+  appimageTools,
+  fetchurl,
+  makeWrapper,
+  undmg,
+}: let
   pname = "joplin-desktop";
   version = "2.11.11";
   name = "${pname}-${version}";
@@ -8,19 +13,25 @@ let
   inherit (stdenv.hostPlatform) system;
   throwSystem = throw "Unsupported system: ${system}";
 
-  suffix = {
-    x86_64-linux = "AppImage";
-    x86_64-darwin = "dmg";
-    aarch64-darwin = "dmg";
-  }.${system} or throwSystem;
+  suffix =
+    {
+      x86_64-linux = "AppImage";
+      x86_64-darwin = "dmg";
+      aarch64-darwin = "dmg";
+    }
+    .${system}
+    or throwSystem;
 
   src = fetchurl {
     url = "https://github.com/laurent22/joplin/releases/download/v${version}/Joplin-${version}.${suffix}";
-    sha256 = {
-      x86_64-linux = "sha256-r64+y+LfMrJnUdabVdak5+LQB50YLOuMXftlZ4s3C/w=";
-      x86_64-darwin = "sha256-/dvaYHa7PT6FA63kmtjrErJZI9O+hIlKvHnf5RnfeZg=";
-      aarch64-darwin = "sha256-/dvaYHa7PT6FA63kmtjrErJZI9O+hIlKvHnf5RnfeZg=";
-    }.${system} or throwSystem;
+    sha256 =
+      {
+        x86_64-linux = "sha256-r64+y+LfMrJnUdabVdak5+LQB50YLOuMXftlZ4s3C/w=";
+        x86_64-darwin = "sha256-/dvaYHa7PT6FA63kmtjrErJZI9O+hIlKvHnf5RnfeZg=";
+        aarch64-darwin = "sha256-/dvaYHa7PT6FA63kmtjrErJZI9O+hIlKvHnf5RnfeZg=";
+      }
+      .${system}
+      or throwSystem;
   };
 
   appimageContents = appimageTools.extractType2 {
@@ -38,8 +49,8 @@ let
     '';
     homepage = "https://joplinapp.org";
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ hugoreeves qjoly ];
-    platforms = [ "x86_64-linux" "x86_64-darwin" "aarch64-darwin"];
+    maintainers = with maintainers; [hugoreeves qjoly];
+    platforms = ["x86_64-linux" "x86_64-darwin" "aarch64-darwin"];
   };
 
   linux = appimageTools.wrapType2 rec {
@@ -66,7 +77,7 @@ let
   darwin = stdenv.mkDerivation {
     inherit name src meta;
 
-    nativeBuildInputs = [ undmg ];
+    nativeBuildInputs = [undmg];
 
     sourceRoot = "Joplin.app";
 
@@ -76,6 +87,6 @@ let
     '';
   };
 in
-if stdenv.isDarwin
-then darwin
-else linux
+  if stdenv.isDarwin
+  then darwin
+  else linux

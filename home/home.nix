@@ -1,35 +1,42 @@
 # This is your home-manager configuration file
 # Use this to configure your home environment (it replaces ~/.config/nixpkgs/home.nix)
-
-{ inputs, lib, user, homedir, config, pkgs, pkgs-unstable, ... }: 
-let 
+{
+  inputs,
+  lib,
+  user,
+  homedir,
+  config,
+  pkgs,
+  pkgs-unstable,
+  ...
+}: let
   # installs a vim plugin from git with a given tag / branch
-  pluginGit = ref: repo: pkgs.vimUtils.buildVimPluginFrom2Nix {
-    pname = "${lib.strings.sanitizeDerivationName repo}";
-    version = ref;
-    src = builtins.fetchGit {
-      url = "https://github.com/${repo}.git";
-      ref = ref;
+  pluginGit = ref: repo:
+    pkgs.vimUtils.buildVimPluginFrom2Nix {
+      pname = "${lib.strings.sanitizeDerivationName repo}";
+      version = ref;
+      src = builtins.fetchGit {
+        url = "https://github.com/${repo}.git";
+        ref = ref;
+      };
     };
-  };
 
   # always installs latest version
   plugin = pluginGit "HEAD";
-
-in
-{
+in {
   imports = [
   ];
   nixpkgs = {
     # You can add overlays here
     overlays = [
-   ];
+      (import ../overlays/default.nix)
+    ];
     # Configure your nixpkgs instance
     config = {
       allowUnfree = true;
       # allowUnsupportedSystem = true;
       # Workaround for https://github.com/nix-community/home-manager/issues/2942
-      allowUnfreePredicate = (_: true);
+      allowUnfreePredicate = _: true;
     };
   };
 
@@ -39,7 +46,9 @@ in
   };
 
   home.packages = with pkgs; [
+    alejandra
     direnv
+    joplin-desktop
     fish
     fzf
     gnumake
@@ -48,7 +57,7 @@ in
     starship
     tldr
     inputs.customFlameshot.defaultPackage.${system}
-    ];
+  ];
 
   programs.vscode = {
     enable = true;
@@ -58,7 +67,7 @@ in
       rust-lang.rust-analyzer
       ms-python.vscode-pylance
       # ms-vscode.cpptools
-      vscodevim.vim    
+      vscodevim.vim
     ];
   };
 
@@ -79,24 +88,23 @@ in
     ];
 
     plugins = with pkgs.vimPlugins; [
-     vim-airline
-     vim-nix
-     nerdtree
-     (plugin "sainnhe/everforest")
+      vim-airline
+      vim-nix
+      nerdtree
+      (plugin "sainnhe/everforest")
     ];
   };
-
 
   programs.fish = {
     enable = true;
     interactiveShellInit = ''
-        # Commands to run in interactive sessions can go here
-        set -x GPG_TTY (tty)
-        set -x SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
-        gpgconf --launch gpg-agent
+      # Commands to run in interactive sessions can go here
+      set -x GPG_TTY (tty)
+      set -x SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
+      gpgconf --launch gpg-agent
 
-        starship init fish | source
-        direnv hook fish | source
+      starship init fish | source
+      direnv hook fish | source
     '';
   };
 
@@ -118,7 +126,7 @@ in
       setw -g mode-keys vi
       unbind -T copy-mode-vi Space; #Default for begin-selection
       unbind -T copy-mode-vi Enter; #Default for copy-selection
-      
+
       bind -T copy-mode-vi v
       bind -T copy-mode-vi y
 
@@ -133,38 +141,38 @@ in
       bind - split-window -v
 
       #### COLOUR (Solarized dark)
-      
+
       # default statusbar colors
       set-option -g status-style fg=yellow,bg=black #yellow and base02
-      
+
       # default window title colors
       set-window-option -g window-status-style fg=brightblue,bg=default #base0 and default
       #set-window-option -g window-status-style dim
-      
+
       # active window title colors
       set-window-option -g window-status-current-style fg=brightred,bg=default #orange and default
       #set-window-option -g window-status-current-style bright
-      
+
       # pane border
       set-option -g pane-border-style fg=black #base02
       set-option -g pane-active-border-style fg=brightgreen #base01
-      
+
       # message text
       set-option -g message-style fg=brightred,bg=black #orange and base01
-      
+
       # pane number display
       set-option -g display-panes-active-colour brightred #orange
       set-option -g display-panes-colour blue #blue
-      
+
       # clock
       set-window-option -g clock-mode-colour green #green
-      
+
       # bell
       set-window-option -g window-status-bell-style fg=black,bg=red #base02, red
     '';
   };
 
-  programs.kitty ={
+  programs.kitty = {
     enable = true;
     font.size = 16;
     font.name = "DejuVu Sans Mono";

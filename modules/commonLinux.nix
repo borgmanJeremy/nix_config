@@ -1,9 +1,12 @@
-{ config, lib, pkgs, ... }:
-with lib;
-let 
-  cfg = config.my.commonDesktopOptions;
-in
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
+  cfg = config.my.commonDesktopOptions;
+in {
   options.my.commonDesktopOptions = {
     enable = lib.mkOption {
       type = lib.types.bool;
@@ -37,5 +40,5 @@ in
       };
     };
     virtualisation.libvirtd.enable = true;
-   };
+  };
 }
