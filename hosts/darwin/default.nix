@@ -21,6 +21,7 @@
     masApps = {
       "Bitwarden" = 1352778147;
       "Tailscale" = 1475387142;
+      "XCode" = 497799835;
     };
   };
 
