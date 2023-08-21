@@ -34,9 +34,7 @@
       or throwSystem;
   };
 
-  appimageContents = appimageTools.extractType2 {
-    inherit name src;
-  };
+  appimageContents = appimageTools.extractType2 {inherit name src;};
 
   meta = with lib; {
     description = "An open source note taking and to-do application with synchronisation capabilities";

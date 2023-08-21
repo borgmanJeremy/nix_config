@@ -1,4 +1,3 @@
-self: super: 
-{
-    joplin-desktop = self.callPackage ./joplin-desktop { };
+self: super: {
+  joplin-desktop = self.callPackage ./joplin-desktop {};
 }

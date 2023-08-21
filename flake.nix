@@ -12,9 +12,7 @@
     darwin.url = "github:lnl7/nix-darwin/master";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
 
-    customFlameshot = {
-      url = "github:borgmanJeremy/flameshot";
-    };
+    customFlameshot = {url = "github:borgmanJeremy/flameshot";};
   };
 
   outputs = {
@@ -42,16 +40,14 @@
 
       nixosdesktop = nixpkgs.lib.nixosSystem {
         specialArgs = {
-          inherit inputs;
+          inherit inputs user;
           pkgs-unstable = import nixpkgs-unstable {
             system = "x86_64-linux";
             config.allowUnfree = true;
           };
         };
 
-        modules = [
-          ./hosts/desktop/configuration.nix
-        ];
+        modules = [./hosts/desktop/configuration.nix];
       };
     };
 
@@ -70,9 +66,7 @@
             config.allowUnfree = true;
           };
         };
-        modules = [
-          ./home/home.nix
-        ];
+        modules = [./home/home.nix];
       };
 
       "jeremy@jeremys-macbook-air" = home-manager.lib.homeManagerConfiguration {

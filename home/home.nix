@@ -61,12 +61,12 @@ in {
 
   programs.vscode = {
     enable = true;
-    package=pkgs-unstable.vscode;
+    package = pkgs-unstable.vscode;
     extensions = with pkgs.vscode-extensions; [
-      # vadimcn.vscode-lldb
+      vadimcn.vscode-lldb
       rust-lang.rust-analyzer
       ms-python.vscode-pylance
-      # ms-vscode.cpptools
+      bbenoist.nix
       vscodevim.vim
     ];
   };
@@ -82,10 +82,7 @@ in {
 
     '';
 
-    extraPackages = with pkgs; [
-      tree-sitter
-      rust-analyzer
-    ];
+    extraPackages = with pkgs; [tree-sitter rust-analyzer];
 
     plugins = with pkgs.vimPlugins; [
       vim-airline
@@ -113,11 +110,7 @@ in {
     enable = true;
     userName = "Jeremy Borgman";
     userEmail = "borgman.jeremy@pm.me";
-    extraConfig = {
-      init = {
-        defaultBranch = "main";
-      };
-    };
+    extraConfig = {init = {defaultBranch = "main";};};
   };
 
   programs.tmux = {

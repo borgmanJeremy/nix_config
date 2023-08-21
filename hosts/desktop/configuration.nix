@@ -6,6 +6,7 @@
   config,
   pkgs,
   pkgs-unstable,
+  user,
   ...
 }: {
   imports = [
@@ -15,32 +16,25 @@
   ];
 
   nixpkgs = {
-    overlays = [
-      (import ../../overlays/default.nix)
-    ];
+    overlays = [(import ../../overlays/default.nix)];
 
     # Configure your nixpkgs instance
-    config = {
-      allowUnfree = true;
-    };
+    config = {allowUnfree = true;};
   };
 
   services.rpcbind.enable = true; # needed for NFS
 
+  ## Remote Mounts
   systemd.mounts = [
     {
       type = "nfs";
-      mountConfig = {
-        Options = "noatime";
-      };
+      mountConfig = {Options = "noatime";};
       what = "192.168.1.77:/data/arr";
       where = "/mnt/falcon/data/arr";
     }
     {
       type = "nfs";
-      mountConfig = {
-        Options = "noatime";
-      };
+      mountConfig = {Options = "noatime";};
       what = "192.168.1.77:/data/media/pictures";
       where = "/mnt/falcon/data/media/pictures";
     }
@@ -49,19 +43,17 @@
   systemd.automounts = [
     {
       wantedBy = ["multi-user.target"];
-      automountConfig = {
-        TimeoutIdleSec = "600";
-      };
+      automountConfig = {TimeoutIdleSec = "600";};
       where = "/mnt/falcon/data/media/pictures";
     }
     {
       wantedBy = ["multi-user.target"];
-      automountConfig = {
-        TimeoutIdleSec = "600";
-      };
+      automountConfig = {TimeoutIdleSec = "600";};
       where = "/mnt/falcon/data/arr";
     }
   ];
+
+  boot.zfs.extraPools = ["external_backup"];
 
   nix = {
     # This will add each flake input as a registry
@@ -70,7 +62,9 @@
 
     # This will additionally add your inputs to the system's legacy channels
     # Making legacy nix commands consistent as well, awesome!
-    nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
+    nixPath =
+      lib.mapAttrsToList (key: value: "${key}=${value.to.path}")
+      config.nix.registry;
 
     settings = {
       experimental-features = "nix-command flakes";
@@ -153,6 +147,7 @@
       handbrake
       home-manager
       joplin-desktop
+      k3b
       kdenlive
       libreoffice
       libvirt
@@ -182,11 +177,7 @@
     ];
   };
 
-  environment.systemPackages = with pkgs; [
-    nfs-utils
-    vim
-    kde-rounded-corners
-  ];
+  environment.systemPackages = with pkgs; [nfs-utils vim kde-rounded-corners];
 
   services.openssh.enable = true;
   networking.firewall.enable = false;

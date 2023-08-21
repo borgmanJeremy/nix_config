@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  user,
   ...
 }:
 with lib; let
@@ -26,34 +27,34 @@ in {
     };
   };
 
-  config =
-    mkMerge
-    [
-      (mkIf cfg.enable {
-        services.xserver.enable = true;
+  config = mkMerge [
+    (mkIf cfg.enable {
+      services.xserver.enable = true;
 
-        sound.enable = true;
-        hardware.pulseaudio.enable = false;
-        security.rtkit.enable = true;
-        services.pipewire = {
-          enable = true;
-          alsa.enable = true;
-          alsa.support32Bit = true;
-          pulse.enable = true;
-        };
-      })
+      sound.enable = true;
+      hardware.pulseaudio.enable = false;
+      security.rtkit.enable = true;
+      services.pipewire = {
+        enable = true;
+        alsa.enable = true;
+        alsa.support32Bit = true;
+        pulse.enable = true;
+      };
+    })
 
-      (mkIf cfg.useGnome {
-        services.gvfs.enable = true;
-        services.xserver.displayManager.gdm.enable = true;
-        services.xserver.desktopManager.gnome.enable = true;
+    (mkIf cfg.useGnome {
+      services.gvfs.enable = true;
+      services.xserver.displayManager.gdm.enable = true;
+      services.xserver.desktopManager.gnome.enable = true;
 
-        nixpkgs.config.firefox.enableGnomeExtensions = true;
-      })
+      nixpkgs.config.firefox.enableGnomeExtensions = true;
+    })
 
-      (mkIf cfg.usePlasma {
-        services.xserver.displayManager.sddm.enable = true;
-        services.xserver.desktopManager.plasma5.enable = true;
-      })
-    ];
+    (mkIf cfg.usePlasma {
+      services.xserver.displayManager.sddm.enable = true;
+      services.xserver.desktopManager.plasma5.enable = true;
+      services.xserver.displayManager.autoLogin.enable = true;
+      services.xserver.displayManager.autoLogin.user = "${user}";
+    })
+  ];
 }

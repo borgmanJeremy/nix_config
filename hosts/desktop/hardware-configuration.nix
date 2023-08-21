@@ -17,10 +17,7 @@
   boot.kernelModules = ["kvm-amd"];
   boot.extraModulePackages = [];
 
-  # zfs module broken on latest
-  #boot.kernelPackages = pkgs.linuxPackages_latest;
-
-  boot.kernelPackages = pkgs.linuxPackages_6_1;
+  boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/27d73afc-df10-4485-bd31-bf44e252f2b0";
