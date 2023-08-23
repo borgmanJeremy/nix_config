@@ -170,6 +170,9 @@ in {
     font.size = 16;
     font.name = "DejuVu Sans Mono";
     theme = "Afterglow";
+    extraConfig = ''
+      confirm_os_window_close 0
+    '';
   };
 
   programs.gpg = {
