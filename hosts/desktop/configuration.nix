@@ -38,6 +38,12 @@
       what = "192.168.1.77:/data/media/pictures";
       where = "/mnt/falcon/data/media/pictures";
     }
+    {
+      type = "nfs";
+      mountConfig = {Options = "noatime";};
+      what = "192.168.1.77:/data/media/video";
+      where = "/mnt/falcon/data/media/video";
+    }
   ];
 
   systemd.automounts = [
@@ -51,9 +57,14 @@
       automountConfig = {TimeoutIdleSec = "600";};
       where = "/mnt/falcon/data/arr";
     }
+    {
+      wantedBy = ["multi-user.target"];
+      automountConfig = {TimeoutIdleSec = "600";};
+      where = "/mnt/falcon/data/media/video";
+    }
   ];
 
-  boot.zfs.extraPools = ["external_backup"];
+  # boot.zfs.extraPools = ["external_backup"];
 
   nix = {
     # This will add each flake input as a registry
@@ -108,7 +119,6 @@
   services.pcscd.enable = true;
   programs.ssh.startAgent = false;
   services.udev.packages = [pkgs.yubikey-personalization];
-  programs.gnupg.agent.pinentryFlavor = "gnome3";
   environment.shellInit = ''
     gpg-connect-agent /bye
     export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
@@ -116,6 +126,7 @@
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
+    pinentryFlavor = "gnome3";
   };
   programs.fish.enable = true;
 
@@ -126,7 +137,10 @@
   hardware.logitech.wireless.enableGraphical = true;
 
   services.xserver.videoDrivers = ["amdgpu"];
+
+  services.sunshine.enable = true;
   programs.steam.enable = true; # optional
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.jeremy = {
     shell = pkgs.fish;
@@ -152,10 +166,11 @@
       libreoffice
       libvirt
       lm_sensors
-      makemkv
+      pkgs-unstable.makemkv
       nextcloud-client
       obs-studio
       openssl
+      pinentry-curses
       podman-compose
       protonvpn-gui
       prusa-slicer

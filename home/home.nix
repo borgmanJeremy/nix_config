@@ -44,7 +44,19 @@ in {
     username = "${user}";
     homeDirectory = "${homedir}";
   };
-
+  xdg.configFile."sunshine/apps.json".text =
+    builtins.toJSON
+    {
+      env = "/run/current-system/sw/bin";
+      apps = [
+        {
+          name = "Steam";
+          output = "steam.txt";
+          detached = ["${pkgs.util-linux}/bin/setsid ${pkgs.steam}/bin/steam steam://open/bigpicture"];
+          image-path = "steam.png";
+        }
+      ];
+    };
   home.packages = with pkgs; [
     alejandra
     direnv
@@ -175,9 +187,9 @@ in {
     '';
   };
 
-  programs.gpg = {
-    enable = true;
-  };
+  # programs.gpg = {
+  #   enable = true;
+  # };
 
   # Enable home-manager and git
   programs.home-manager.enable = true;
