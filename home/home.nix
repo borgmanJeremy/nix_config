@@ -87,6 +87,7 @@ in {
     enable = true;
     viAlias = true;
     vimAlias = true;
+    defaultEditor = true;
     extraConfig = ''
       set number relativenumber
       colorscheme everforest

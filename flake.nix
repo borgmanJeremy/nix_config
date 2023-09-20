@@ -11,6 +11,8 @@
     darwin.url = "github:lnl7/nix-darwin/master";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
 
+    sops-nix.url = "github:Mic92/sops-nix";
+
     customFlameshot = {url = "github:borgmanJeremy/flameshot";};
   };
 
@@ -20,6 +22,7 @@
     nixpkgs-unstable,
     darwin,
     home-manager,
+    sops-nix,
     ...
   } @ inputs: let
     user = "jeremy";
@@ -46,7 +49,7 @@
           };
         };
 
-        modules = [./hosts/desktop/configuration.nix];
+        modules = [./hosts/desktop/configuration.nix sops-nix.nixosModules.sops];
       };
     };
 
