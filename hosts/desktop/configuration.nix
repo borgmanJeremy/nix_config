@@ -32,6 +32,7 @@
 
   services.telegraf = {
     enable = true;
+    environmentFiles = [config.sops.secrets.influx_token.path];
     extraConfig = {
       agent = {
         interval = "10s";
@@ -67,7 +68,7 @@
       outputs = {
         influxdb_v2 = {
           urls = ["http://monitoringvm:8086"];
-          token = config.sops.secrets.influx_token;
+          token = "\${influx_token}";
           organization = "home";
           bucket = "tigstack";
         };
