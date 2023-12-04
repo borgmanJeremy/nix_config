@@ -2,7 +2,7 @@
   config,
   lib,
   pkgs,
-  # pkgs-unstable,
+  pkgs-unstable,
   ...
 }:
 with lib; let
@@ -13,17 +13,16 @@ in {
       enable = mkEnableOption (mdDoc "Sunshine");
     };
   };
-
   config = mkIf config.services.sunshine.enable {
     environment.systemPackages = [
-      pkgs.sunshine
+      pkgs-unstable.sunshine
     ];
 
     security.wrappers.sunshine = {
       owner = "root";
       group = "root";
       capabilities = "cap_sys_admin+p";
-      source = "${pkgs.sunshine}/bin/sunshine";
+      source = "${pkgs-unstable.sunshine}/bin/sunshine";
     };
 
     systemd.user.services.sunshine = {

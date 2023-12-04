@@ -12,7 +12,7 @@
 }: let
   # installs a vim plugin from git with a given tag / branch
   pluginGit = ref: repo:
-    pkgs.vimUtils.buildVimPluginFrom2Nix {
+    pkgs.vimUtils.buildVimPlugin {
       pname = "${lib.strings.sanitizeDerivationName repo}";
       version = ref;
       src = builtins.fetchGit {

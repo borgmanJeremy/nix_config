@@ -25,6 +25,8 @@ in {
     };
 
     services.printing.enable = true;
+    services.fwupd.enable = true;
+
     networking.networkmanager.enable = true;
 
     services.flatpak.enable = true;
