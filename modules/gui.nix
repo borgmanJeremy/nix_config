@@ -25,6 +25,11 @@ in {
       default = false;
       description = "Use Plasma";
     };
+    useBudgie = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Use Budgie";
+    };
   };
 
   config = mkMerge [
@@ -50,11 +55,17 @@ in {
       nixpkgs.config.firefox.enableGnomeExtensions = true;
     })
 
+    (mkIf cfg.useBudgie {
+      services.xserver.enable = true;
+      services.xserver.desktopManager.budgie.enable = true;
+      services.xserver.displayManager.lightdm.enable = true;
+    })
+
     (mkIf cfg.usePlasma {
-      services.xserver.displayManager.sddm.enable = true;
-      services.xserver.desktopManager.plasma5.enable = true;
-      services.xserver.displayManager.autoLogin.enable = true;
-      services.xserver.displayManager.autoLogin.user = "${user}";
+      services.displayManager.sddm.wayland.enable = true;
+      services.desktopManager.plasma6.enable = true;
+      # services.xserver.displayManager.autoLogin.enable = true;
+      # services.xserver.displayManager.autoLogin.user = "${user}";
     })
   ];
 }

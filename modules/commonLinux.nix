@@ -20,8 +20,8 @@ in {
     i18n.defaultLocale = "en_US.utf8";
 
     services.xserver = {
-      layout = "us";
-      xkbVariant = "";
+      xkb.layout = "us";
+      xkb.variant = "";
     };
 
     services.printing.enable = true;

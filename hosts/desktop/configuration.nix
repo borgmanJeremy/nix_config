@@ -95,6 +95,12 @@
     {
       type = "nfs";
       mountConfig = {Options = "noatime";};
+      what = "192.168.1.77:/data/media/books";
+      where = "/mnt/falcon/data/media/books";
+    }
+    {
+      type = "nfs";
+      mountConfig = {Options = "noatime";};
       what = "192.168.1.77:/data/media/pictures";
       where = "/mnt/falcon/data/media/pictures";
     }
@@ -116,6 +122,11 @@
       wantedBy = ["multi-user.target"];
       automountConfig = {TimeoutIdleSec = "600";};
       where = "/mnt/falcon/data/arr";
+    }
+    {
+      wantedBy = ["multi-user.target"];
+      automountConfig = {TimeoutIdleSec = "600";};
+      where = "/mnt/falcon/data/media/books";
     }
     {
       wantedBy = ["multi-user.target"];
@@ -152,6 +163,8 @@
   networking.hostName = "nixos"; # Define your hostname.
 
   my.gui.enable = true;
+  # my.gui.useGnome = true;
+  # my.gui.useBudgie = true;
   my.gui.usePlasma = true;
 
   my.commonDesktopOptions.enable = true;
@@ -178,7 +191,11 @@
   # Set up yubikey
   services.pcscd.enable = true;
   programs.ssh.startAgent = false;
-  services.udev.packages = [pkgs.yubikey-personalization];
+  services.udev.packages = [
+    pkgs.yubikey-personalization
+    pkgs.platformio-core
+    pkgs.openocd
+  ];
   environment.shellInit = ''
     gpg-connect-agent /bye
     export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
@@ -186,7 +203,7 @@
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
-    pinentryFlavor = "gnome3";
+    # pinentryFlavor = "gnome3";
   };
   programs.fish.enable = true;
 
@@ -200,6 +217,14 @@
 
   services.sunshine.enable = true;
   programs.steam.enable = true; # optional
+
+  # This can be removed after 24.05 is released. It includes new sunshine service
+  security.wrappers.sunshine = {
+    owner = "root";
+    group = "root";
+    capabilities = "cap_sys_admin+p";
+    source = "${pkgs.sunshine}/bin/sunshine";
+  };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.jeremy = {
@@ -243,12 +268,13 @@
       virt-manager
       virt-viewer
 
+      platformio
+
       xorg.xhost
 
       yubikey-manager
       yubikey-manager-qt
       yubikey-touch-detector
-      yuzu-ea
     ];
   };
 
