@@ -30,6 +30,11 @@ in {
       default = false;
       description = "Use Budgie";
     };
+    useSway = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Use Sway";
+    };
   };
 
   config = mkMerge [
@@ -59,6 +64,11 @@ in {
       services.xserver.enable = true;
       services.xserver.desktopManager.budgie.enable = true;
       services.xserver.displayManager.lightdm.enable = true;
+    })
+
+    (mkIf cfg.useSway {
+      services.xserver.displayManager.gdm.enable = true;
+      programs.sway.enable = true;
     })
 
     (mkIf cfg.usePlasma {

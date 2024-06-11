@@ -166,6 +166,7 @@
   # my.gui.useGnome = true;
   # my.gui.useBudgie = true;
   my.gui.usePlasma = true;
+  # my.gui.useSway = true;
 
   my.commonDesktopOptions.enable = true;
 
@@ -203,7 +204,6 @@
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
-    # pinentryFlavor = "gnome3";
   };
   programs.fish.enable = true;
 
@@ -216,7 +216,7 @@
   services.xserver.videoDrivers = ["amdgpu"];
 
   services.sunshine.enable = true;
-  programs.steam.enable = true; # optional
+  # programs.steam.enable = true;
 
   # This can be removed after 24.05 is released. It includes new sunshine service
   security.wrappers.sunshine = {
@@ -237,7 +237,7 @@
       blender
       calibre
       digikam
-      pkgs-unstable.distrobox
+      distrobox
       file
       firefox
       flatpak
@@ -251,7 +251,7 @@
       libreoffice
       libvirt
       lm_sensors
-      pkgs-unstable.makemkv
+      makemkv
       nextcloud-client
       obs-studio
       openssl
@@ -263,7 +263,7 @@
       rawtherapee
       sanoid
       signal-desktop
-      steam
+      # steam
       tailscale
       virt-manager
       virt-viewer
