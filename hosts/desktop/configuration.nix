@@ -135,8 +135,6 @@
     }
   ];
 
-  # boot.zfs.extraPools = ["external_backup"];
-
   nix = {
     # This will add each flake input as a registry
     # To make nix3 commands consistent with your flake
@@ -174,7 +172,6 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.systemd-boot.configurationLimit = 10;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
   # zfs
   services.zfs.autoScrub.enable = true;
@@ -216,15 +213,7 @@
   services.xserver.videoDrivers = ["amdgpu"];
 
   services.sunshine.enable = true;
-  # programs.steam.enable = true;
-
-  # This can be removed after 24.05 is released. It includes new sunshine service
-  security.wrappers.sunshine = {
-    owner = "root";
-    group = "root";
-    capabilities = "cap_sys_admin+p";
-    source = "${pkgs.sunshine}/bin/sunshine";
-  };
+  programs.steam.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.jeremy = {
@@ -263,7 +252,6 @@
       rawtherapee
       sanoid
       signal-desktop
-      # steam
       tailscale
       virt-manager
       virt-viewer
@@ -289,5 +277,5 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "22.05"; # Did you read the comment?
+  system.stateVersion = "24.05"; # Did you read the comment?
 }
